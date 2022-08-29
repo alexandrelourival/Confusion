@@ -8,13 +8,13 @@ import { DishService } from '../services/dish.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  
+
   dishes: Dish[] | undefined;
 
   constructor( private dishservice: DishService) { }
 
   ngOnInit(): void {
-    this.dishes = this.dishservice.getDishes();
+    this.dishservice.getDishes().then(dishes => this.dishes = dishes);
   }
 
 }
