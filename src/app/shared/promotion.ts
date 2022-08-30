@@ -1,9 +1,9 @@
 export class Promotion {
-  id: string | undefined;
-  name: string | undefined;
-  image: string | undefined;
-  label: string | undefined;
-  price: string | undefined;
-  featured: boolean | undefined;
-  description: string | undefined;
+  id!: string;
+  name!: string;
+  image!: string;
+  label!: string;
+  price!: string;
+  featured!: boolean;
+  description!: string;
 }

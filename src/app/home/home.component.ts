@@ -14,9 +14,9 @@ import { Promotion } from '../shared/promotion';
 })
 export class HomeComponent implements OnInit {
 
-  dish: Dish | undefined;
-  promotion: Promotion | undefined;
-  leader: Leader | undefined;
+  dish!: Dish;
+  promotion!: Promotion;
+  leader!: Leader;
 
   constructor(private dishservice: DishService, private promotionservice: PromotionService, private leaderservice: LeaderService) { }
 

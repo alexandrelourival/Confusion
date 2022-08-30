@@ -13,7 +13,7 @@ export class ContactComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
 
   feedbackForm!: FormGroup;
-  feedback: Feedback | undefined;
+  feedback!: Feedback;
   contactType = ContactType;
 
   constructor(private fb: FormBuilder) {
