@@ -1,5 +1,6 @@
+
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -41,7 +42,9 @@ export class DishdetailComponent implements OnInit {
     }
   };
 
-  constructor(private dishservice: DishService, private route: ActivatedRoute, private location: Location, private fb: FormBuilder) {
+  constructor(private dishservice: DishService, private route: ActivatedRoute,
+    private location: Location, private fb: FormBuilder,
+    @Inject('BaseURL') public baseURL: string) {
     this.createForm();
   }
 
@@ -64,9 +67,8 @@ export class DishdetailComponent implements OnInit {
   createForm() {
     this.feedbackForm = this.fb.group({
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-      rating: [1],
-      comment: ['', [Validators.required]],
-      date: ['']
+      rating: [5],
+      comment: ['', [Validators.required]]
     });
 
     this.feedbackForm.valueChanges
@@ -103,7 +105,7 @@ export class DishdetailComponent implements OnInit {
     this.dish.comments.push(this.feedback);
     this.feedbackForm.reset({
       author: '',
-      rating: 1,
+      rating: 5,
       comment: ''
     });
   }
