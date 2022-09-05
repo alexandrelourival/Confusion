@@ -1,4 +1,3 @@
-
 import { Location } from '@angular/common';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,6 +7,7 @@ import { switchMap } from 'rxjs';
 import { DishService } from '../services/dish.service';
 import { Comment } from '../shared/comment';
 import { Dish } from '../shared/dish';
+
 
 
 @Component({
@@ -23,6 +23,7 @@ export class DishdetailComponent implements OnInit {
   dishIds!: string[];
   prev!: string;
   next!: string;
+  errMess!: string;
 
   feedbackForm!: FormGroup;
   feedback!: Comment;
@@ -51,7 +52,7 @@ export class DishdetailComponent implements OnInit {
   ngOnInit(): void {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
+      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }, errmes => this.errMess = errmes);
   }
 
   setPrevNext(dishId: string) {
