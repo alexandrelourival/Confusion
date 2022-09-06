@@ -20,13 +20,14 @@ export class DishdetailComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
 
   dish!: Dish;
+  dishcopy!: Dish;
   dishIds!: string[];
   prev!: string;
   next!: string;
   errMess!: string;
 
   feedbackForm!: FormGroup;
-  feedback!: Comment;
+  comment!: Comment;
 
   formErrors: any = {
     'author': '',
@@ -43,16 +44,16 @@ export class DishdetailComponent implements OnInit {
     }
   };
 
-  constructor(private dishservice: DishService, private route: ActivatedRoute,
+  constructor(private dishService: DishService, private route: ActivatedRoute,
     private location: Location, private fb: FormBuilder,
     @Inject('BaseURL') public baseURL: string) {
     this.createForm();
   }
 
   ngOnInit(): void {
-    this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
-    this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }, errmes => this.errMess = errmes);
+    this.dishService.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
+    this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); }, errmes => this.errMess = errmes);
   }
 
   setPrevNext(dishId: string) {
@@ -100,10 +101,20 @@ export class DishdetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.feedback = this.feedbackForm.value;
-    this.feedback.date = new Date(Date.now()).toISOString();
-    console.log(this.feedback);
-    this.dish.comments.push(this.feedback);
+    this.comment = this.feedbackForm.value;
+    this.comment.date = new Date(Date.now()).toISOString();
+    console.log(this.comment);
+    this.dishcopy.comments.push(this.comment);
+    this.dishService.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish;
+        this.dishcopy = dish;
+      }, errmess => {
+        this.dish = new Dish();
+        this.dishcopy = new Dish();
+        this.errMess = <any>errmess;
+      }
+      )
     this.feedbackForm.reset({
       author: '',
       rating: 5,
