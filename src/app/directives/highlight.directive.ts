@@ -1,9 +1,9 @@
-import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Directive, ElementRef, Renderer2, HostListener  } from '@angular/core';
 
 @Directive({
-  selector: '[appHiglight]'
+  selector: '[appHighlight]'
 })
-export class HiglightDirective {
+export class HighlightDirective {
 
   constructor(private el: ElementRef,
     private renderer: Renderer2) { }

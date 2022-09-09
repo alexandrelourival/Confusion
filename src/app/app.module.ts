@@ -24,6 +24,7 @@ import { AboutComponent } from './about/about.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactComponent } from './contact/contact.component';
+import { HighlightDirective } from './directives/highlight.directive';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -34,7 +35,6 @@ import { DishService } from './services/dish.service';
 import { LeaderService } from './services/leader.service';
 import { PromotionService } from './services/promotion.service';
 import { baseURL } from './shared/baseurl';
-import { HiglightDirective } from './directives/higlight.directive';
 
 
 @NgModule({
@@ -48,7 +48,7 @@ import { HiglightDirective } from './directives/higlight.directive';
     HomeComponent,
     ContactComponent,
     LoginComponent,
-    HiglightDirective
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
